@@ -15,21 +15,7 @@ class CustomCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Stack(
         children: [
-          Positioned(
-            left: 3,
-            top: 25,
-            bottom: 25,
-            child: Container(
-              width: 7,
-              decoration: const BoxDecoration(
-                color: AppStyles.primary1,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(AppStyles.radiusXXXL),
-                  bottomLeft: Radius.circular(AppStyles.radiusXXXL),
-                ),
-              ),
-            ),
-          ),
+
           Container(
             margin: EdgeInsets.only(left: AppStyles.paddingM),
             decoration: BoxDecoration(

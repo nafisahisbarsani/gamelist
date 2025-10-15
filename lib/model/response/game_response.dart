@@ -1,4 +1,3 @@
-// lib/data/models/response/game_response.dart
 import 'package:json_annotation/json_annotation.dart';
 import '../game_model.dart';
 
