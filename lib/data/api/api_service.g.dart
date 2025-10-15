@@ -27,6 +27,7 @@ class _ApiService implements ApiService {
     int? page,
     int? pageSize,
     String? ordering,
+    String? search,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -34,6 +35,7 @@ class _ApiService implements ApiService {
       r'page': page,
       r'page_size': pageSize,
       r'ordering': ordering,
+      r'search': search,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};

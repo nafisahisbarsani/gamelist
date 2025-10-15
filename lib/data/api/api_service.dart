@@ -15,5 +15,6 @@ abstract class ApiService {
     @Query("page") int? page,
     @Query("page_size") int? pageSize,
     @Query("ordering") String? ordering,
+    @Query("search") String? search,
   });
 }
