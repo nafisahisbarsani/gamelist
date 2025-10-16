@@ -35,19 +35,25 @@ class CustomSearchBar extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              controller: controller,
-              style: AppStyles.smedium(color: AppStyles.black00),
-              decoration: InputDecoration(
-                hintText: hintText,
-                hintStyle: AppStyles.smedium(color: AppStyles.black00),
-                border: InputBorder.none,
-                isDense: true,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: controller,
+                style: AppStyles.smedium(color: AppStyles.black00),
+                decoration: InputDecoration(
+                  hintText: hintText,
+                  hintStyle: AppStyles.smedium(color: AppStyles.black00),
+                  border: InputBorder.none,
+                  isDense: true,
+                ),
+                onChanged: onChanged,
               ),
-              onChanged: onChanged,
             ),
           ),
-          Icon(Icons.search, color: AppStyles.primary1, size: AppStyles.iconL),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(Icons.search, color: AppStyles.primary1, size: AppStyles.iconL),
+          ),
         ],
       ),
     );
