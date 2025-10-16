@@ -1,4 +1,3 @@
-// lib/data/models/game_model.dart
 import 'package:json_annotation/json_annotation.dart';
 
 part 'game_model.g.dart';
@@ -26,6 +25,28 @@ class GameModel {
 
   factory GameModel.fromJson(Map<String, dynamic> json) => _$GameModelFromJson(json);
   Map<String, dynamic> toJson() => _$GameModelToJson(this);
+
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'background_image': backgroundImage,
+      'released': released,
+      'rating': rating,
+    };
+  }
+
+  factory GameModel.fromMap(Map<String, dynamic> map) {
+    return GameModel(
+      id: map['id'],
+      name: map['name'],
+      backgroundImage: map['background_image'],
+      released: map['released'],
+      rating: map['rating'] != null ? (map['rating'] as num).toDouble() : null,
+      platforms: null, // SQLite won't store platforms for now
+    );
+  }
 }
 
 @JsonSerializable()
