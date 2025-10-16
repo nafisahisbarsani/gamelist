@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:game_list_cubit/widgets/app_styles.dart';
 
 class NavigationPage extends StatelessWidget {
   final int currentIndex;
@@ -21,15 +22,8 @@ class NavigationPage extends StatelessWidget {
           height: 70,
           width: 230,
           decoration: BoxDecoration(
-            color: const Color(0xFFFFC3DD),
+            color: AppStyles.primary1,
             borderRadius: BorderRadius.circular(50),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFFFFC3DD).withOpacity(0.4),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
-              ),
-            ],
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -38,14 +32,14 @@ class NavigationPage extends StatelessWidget {
                 index: 0,
                 isSelected: currentIndex == 0,
                 selectedIcon: 'assets/images/game_selected.svg',
-                unselectedIcon: 'assets/images/games.svg',
+                unselectedIcon: 'assets/images/game_unselected.svg',
                 onTap: () => onTap(0),
               ),
               _buildNavItem(
                 index: 1,
                 isSelected: currentIndex == 1,
                 selectedIcon: 'assets/images/heart_selected.svg',
-                unselectedIcon: 'assets/images/heart.svg',
+                unselectedIcon: 'assets/images/heart_unselected.svg',
                 onTap: () => onTap(1),
               ),
             ],
@@ -67,15 +61,9 @@ class NavigationPage extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: isSelected ? Colors.white : Colors.transparent,
-          borderRadius: BorderRadius.circular(40),
-        ),
+        padding: const EdgeInsets.all(AppStyles.paddingXL),
         child: SvgPicture.asset(
           isSelected ? selectedIcon : unselectedIcon,
-          width: 28,
-          height: 28,
         ),
       ),
     );
