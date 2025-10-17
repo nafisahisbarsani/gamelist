@@ -4,79 +4,71 @@ part 'game_model.g.dart';
 
 @JsonSerializable()
 class GameModel {
+  @JsonKey(name: "id")
   final int id;
+
+  @JsonKey(name: "name")
   final String name;
 
   @JsonKey(name: "background_image")
   final String? backgroundImage;
 
-  final double? rating;
+  @JsonKey(name: "released")
   final String? released;
-  final List<PlatformElement>? platforms;
+
+  @JsonKey(name: "rating")
+  final double rating;
+
+  @JsonKey(name: "platforms")
+  final List<PlatformWrapper>? platforms;
+
+  @JsonKey(name: "description_raw")
+  final String? description;
 
   GameModel({
     required this.id,
     required this.name,
     this.backgroundImage,
-    this.rating,
     this.released,
+    required this.rating,
     this.platforms,
+    this.description,
   });
 
-  factory GameModel.fromJson(Map<String, dynamic> json) => _$GameModelFromJson(json);
+  factory GameModel.fromJson(Map<String, dynamic> json) =>
+      _$GameModelFromJson(json);
+
   Map<String, dynamic> toJson() => _$GameModelToJson(this);
-
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'background_image': backgroundImage,
-      'released': released,
-      'rating': rating,
-    };
-  }
-
-  factory GameModel.fromMap(Map<String, dynamic> map) {
-    return GameModel(
-      id: map['id'],
-      name: map['name'],
-      backgroundImage: map['background_image'],
-      released: map['released'],
-      rating: map['rating'] != null ? (map['rating'] as num).toDouble() : null,
-      platforms: null, // SQLite won't store platforms for now
-    );
-  }
 }
 
 @JsonSerializable()
-class PlatformElement {
-  final PlatformPlatform platform;
+class PlatformWrapper {
+  @JsonKey(name: "platform")
+  final GamePlatform platform;
 
-  @JsonKey(name: "released_at")
-  final String? releasedAt;
+  PlatformWrapper({required this.platform});
 
-  PlatformElement({
-    required this.platform,
-    this.releasedAt,
-  });
+  factory PlatformWrapper.fromJson(Map<String, dynamic> json) =>
+      _$PlatformWrapperFromJson(json);
 
-  factory PlatformElement.fromJson(Map<String, dynamic> json) => _$PlatformElementFromJson(json);
-  Map<String, dynamic> toJson() => _$PlatformElementToJson(this);
+  Map<String, dynamic> toJson() => _$PlatformWrapperToJson(this);
 }
 
 @JsonSerializable()
-class PlatformPlatform {
+class GamePlatform {
+  @JsonKey(name: "id")
   final int id;
-  final String name;
-  final String slug;
 
-  PlatformPlatform({
+  @JsonKey(name: "name")
+  final String name;
+
+  GamePlatform({
     required this.id,
     required this.name,
-    required this.slug,
   });
 
-  factory PlatformPlatform.fromJson(Map<String, dynamic> json) => _$PlatformPlatformFromJson(json);
-  Map<String, dynamic> toJson() => _$PlatformPlatformToJson(this);
+  factory GamePlatform.fromJson(Map<String, dynamic> json) =>
+      _$GamePlatformFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GamePlatformToJson(this);
 }

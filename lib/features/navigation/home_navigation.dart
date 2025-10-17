@@ -1,5 +1,5 @@
 import 'package:game_list_cubit/features/favorites/favorites_page.dart';
-import '../games/games_page.dart';
+import '../games/games_list_page.dart';
 import 'navigation_page.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,7 @@ class _HomeNavigationState extends State<HomeNavigation> {
     });
   }
 
-  final List<Widget> _pages = [GamesPage(), FavoritesPage()];
+  final List<Widget> _pages = [GameListPage(), FavoritesPage()];
 
   @override
   Widget build(BuildContext context) {

@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../widgets/app_styles.dart';
-import '../../widgets/custom_card.dart';
+import '../../ui/app_styles.dart';
+import '../../ui/custom_card.dart';
 import 'cubit/favorites_cubit.dart';
 import 'cubit/favorites_state.dart';
 
