@@ -1,18 +1,18 @@
 import 'package:equatable/equatable.dart';
 import '../../../model/game_model.dart';
 
-abstract class GameState extends Equatable {
-  const GameState();
+abstract class GameListState extends Equatable {
+  const GameListState();
 
   @override
   List<Object> get props => [];
 }
 
-class GameInitial extends GameState {}
+class GameInitial extends GameListState {}
 
-class GameLoading extends GameState {}
+class GameLoading extends GameListState {}
 
-class GameSuccess extends GameState {
+class GameSuccess extends GameListState {
   final List<GameModel> games;
 
   const GameSuccess(this.games);
@@ -21,7 +21,7 @@ class GameSuccess extends GameState {
   List<Object> get props => [games];
 }
 
-class GameError extends GameState {
+class GameError extends GameListState {
   final String message;
 
   const GameError(this.message);

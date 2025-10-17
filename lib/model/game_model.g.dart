@@ -10,46 +10,34 @@ GameModel _$GameModelFromJson(Map<String, dynamic> json) => GameModel(
   id: (json['id'] as num).toInt(),
   name: json['name'] as String,
   backgroundImage: json['background_image'] as String?,
-  rating: (json['rating'] as num?)?.toDouble(),
   released: json['released'] as String?,
+  rating: (json['rating'] as num).toDouble(),
   platforms: (json['platforms'] as List<dynamic>?)
-      ?.map((e) => PlatformElement.fromJson(e as Map<String, dynamic>))
+      ?.map((e) => PlatformWrapper.fromJson(e as Map<String, dynamic>))
       .toList(),
+  description: json['description_raw'] as String?,
 );
 
 Map<String, dynamic> _$GameModelToJson(GameModel instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'background_image': instance.backgroundImage,
-  'rating': instance.rating,
   'released': instance.released,
+  'rating': instance.rating,
   'platforms': instance.platforms,
+  'description_raw': instance.description,
 };
 
-PlatformElement _$PlatformElementFromJson(Map<String, dynamic> json) =>
-    PlatformElement(
-      platform: PlatformPlatform.fromJson(
-        json['platform'] as Map<String, dynamic>,
-      ),
-      releasedAt: json['released_at'] as String?,
+PlatformWrapper _$PlatformWrapperFromJson(Map<String, dynamic> json) =>
+    PlatformWrapper(
+      platform: GamePlatform.fromJson(json['platform'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$PlatformElementToJson(PlatformElement instance) =>
-    <String, dynamic>{
-      'platform': instance.platform,
-      'released_at': instance.releasedAt,
-    };
+Map<String, dynamic> _$PlatformWrapperToJson(PlatformWrapper instance) =>
+    <String, dynamic>{'platform': instance.platform};
 
-PlatformPlatform _$PlatformPlatformFromJson(Map<String, dynamic> json) =>
-    PlatformPlatform(
-      id: (json['id'] as num).toInt(),
-      name: json['name'] as String,
-      slug: json['slug'] as String,
-    );
+GamePlatform _$GamePlatformFromJson(Map<String, dynamic> json) =>
+    GamePlatform(id: (json['id'] as num).toInt(), name: json['name'] as String);
 
-Map<String, dynamic> _$PlatformPlatformToJson(PlatformPlatform instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'slug': instance.slug,
-    };
+Map<String, dynamic> _$GamePlatformToJson(GamePlatform instance) =>
+    <String, dynamic>{'id': instance.id, 'name': instance.name};

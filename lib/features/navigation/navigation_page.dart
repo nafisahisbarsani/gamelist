@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:game_list_cubit/widgets/app_styles.dart';
+import 'package:game_list_cubit/ui/app_styles.dart';
 
 class NavigationPage extends StatelessWidget {
   final int currentIndex;

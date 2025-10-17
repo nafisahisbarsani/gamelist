@@ -6,19 +6,19 @@ class FavoriteRepository {
 
   Future<List<GameModel>> getFavorites() async {
     final maps = await dbHelper.getAllFavorites();
-    return maps
-        .map(
-          (m) => GameModel(
-            id: m['id'],
-            name: m['name'],
-            rating: m['rating'] != null
-                ? (m['rating'] as num).toDouble()
-                : null,
-            backgroundImage: m['background_image'],
-            released: m['released'],
-          ),
-        )
-        .toList();
+
+    return maps.map((m) {
+      return GameModel(
+        id: m['id'] as int,
+        name: m['name'] as String,
+        backgroundImage: m['backgroundImage'] as String?,
+        released: m['released'] as String?,
+        rating: (m['rating'] ?? 0.0) is num
+            ? (m['rating'] as num).toDouble()
+            : 0.0,
+        description: null,
+      );
+    }).toList();
   }
 
   Future<void> addFavorite(GameModel game) async {

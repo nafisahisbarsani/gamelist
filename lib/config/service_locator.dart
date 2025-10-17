@@ -1,4 +1,4 @@
-import 'package:game_list_cubit/features/games/cubit/games_cubit.dart';
+import 'package:game_list_cubit/features/games/cubit/game_list_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import '../repository/game_repository.dart';
@@ -18,8 +18,8 @@ Future<void> _setupRepositories() async {
 
 Future<void> _setupCubits() async {
   // Game Cubit
-  serviceLocator.registerFactory<GameCubit>(
-        () => GameCubit(
+  serviceLocator.registerFactory<GameListCubit>(
+        () => GameListCubit(
       serviceLocator.get<GameRepository>(),
     ),
   );
