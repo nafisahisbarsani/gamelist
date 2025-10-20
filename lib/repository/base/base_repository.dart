@@ -1,63 +1,34 @@
 import 'package:dio/dio.dart';
-import 'dart:convert';
-import 'package:flutter/foundation.dart';
+import '../../utility/data_state.dart';
+import 'package:retrofit/dio.dart';
 
-class BaseRepository {
-  late final Dio _dio;
-
-  BaseRepository() {
-    _dio = Dio();
-
-    if (kDebugMode) {
-      _dio.interceptors.add(
-        LogInterceptor(
-          request: true,
-          requestHeader: true,
-          requestBody: false,
-          responseHeader: false,
-          responseBody: false,
-          logPrint: (object) {
-            if (!object.toString().contains('Response Text:')) {
-              debugPrint('\x1B[36m$object\x1B[0m');
-            }
-          },
-        ),
-      );
-
-      _dio.interceptors.add(
-        InterceptorsWrapper(
-          onResponse: (response, handler) {
-            _printFormattedResponse(response.data);
-            handler.next(response);
-          },
-        ),
-      );
-    }
-
-    _dio.options = BaseOptions(
-      connectTimeout: const Duration(seconds: 30),
-      receiveTimeout: const Duration(seconds: 30),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    );
-  }
-
-  void _printFormattedResponse(dynamic data) {
-    debugPrint('\x1B[32m[Response Body]\x1B[0m');
+abstract class BaseRepository {
+  Future<DataState<T>> getStateOf<T>({
+    required Future<HttpResponse<T>> Function() request,
+  }) async {
     try {
-      if (data is Map || data is List) {
-        final prettyJson = JsonEncoder.withIndent('  ').convert(data);
-        debugPrint('\x1B[32m$prettyJson\x1B[0m');
-      } else {
-        debugPrint('\x1B[32m$data\x1B[0m');
-      }
-    } catch (e) {
-      debugPrint('\x1B[31mError formatting JSON: $e\x1B[0m');
-    }
-    debugPrint('\x1B[32m[End of Response]\x1B[0m');
-  }
+      final httpResponse = await request();
 
-  Dio get dio => _dio;
+      if (httpResponse.response.statusCode == 200) {
+        return DataStateSuccess(httpResponse.data);
+      } else {
+        return DataStateError(
+          DioException(
+            requestOptions: httpResponse.response.requestOptions,
+            response: httpResponse.response,
+            type: DioExceptionType.badResponse,
+          ),
+        );
+      }
+    } on DioException catch (e) {
+      return DataStateError(e);
+    } catch (e) {
+      return DataStateError(
+        DioException(
+          requestOptions: RequestOptions(path: ''),
+          error: e.toString(),
+        ),
+      );
+    }
+  }
 }

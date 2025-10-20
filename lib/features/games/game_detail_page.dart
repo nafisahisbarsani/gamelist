@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../config/service_locator.dart';
 import '../../repository/game_repository.dart';
 import '../../ui/app_styles.dart';
 import '../../ui/custom_arrow.dart';
@@ -15,7 +16,7 @@ class GameDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => GameDetailCubit(GameRepository())..fetchGameDetail(gameId),
+      create: (_) => GameDetailCubit(serviceLocator<GameRepository>())..fetchGameDetail(gameId),
       child: Scaffold(
         backgroundColor: AppStyles.black500,
         body: SafeArea(
