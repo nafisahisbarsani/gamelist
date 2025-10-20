@@ -150,7 +150,7 @@ class GameListPage extends StatelessWidget {
                   } else {
                     return const Padding(
                       padding: EdgeInsets.symmetric(vertical: 16),
-                      child: SizedBox.shrink()
+                      child: SizedBox.shrink(),
                     );
                   }
                 },

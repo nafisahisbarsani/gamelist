@@ -62,9 +62,7 @@ class NavigationPage extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
         padding: const EdgeInsets.all(AppStyles.paddingXL),
-        child: SvgPicture.asset(
-          isSelected ? selectedIcon : unselectedIcon,
-        ),
+        child: SvgPicture.asset(isSelected ? selectedIcon : unselectedIcon),
       ),
     );
   }
