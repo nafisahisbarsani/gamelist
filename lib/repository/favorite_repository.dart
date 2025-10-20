@@ -9,13 +9,13 @@ class FavoriteRepository {
 
     return maps.map((m) {
       return GameModel(
-        id: m['id'] as int,
-        name: m['name'] as String,
-        backgroundImage: m['backgroundImage'] as String?,
-        released: m['released'] as String?,
-        rating: (m['rating'] ?? 0.0) is num
+        id: m['id'] is int ? m['id'] : int.tryParse(m['id'].toString()) ?? 0,
+        name: m['name'] ?? '',
+        backgroundImage: m['background_image'] ?? '',
+        released: m['released'] ?? '',
+        rating: (m['rating'] ?? 0) is num
             ? (m['rating'] as num).toDouble()
-            : 0.0,
+            : double.tryParse(m['rating'].toString()) ?? 0.0,
         description: null,
       );
     }).toList();
@@ -25,8 +25,8 @@ class FavoriteRepository {
     await dbHelper.addFavorite({
       'id': game.id,
       'name': game.name,
-      'background_image': game.backgroundImage,
-      'released': game.released,
+      'background_image': game.backgroundImage ?? '',
+      'released': game.released ?? '',
       'rating': game.rating,
       'addedAt': DateTime.now().toIso8601String(),
     });

@@ -23,8 +23,14 @@ class MyApp extends StatelessWidget {
       title: 'RAWG Games',
       home: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => GameListCubit(serviceLocator<GameRepository>())),
-          BlocProvider(create: (_) => FavoriteCubit(FavoriteRepository())),
+          // Injects GameListCubit with the Dio-backed GameRepository
+          BlocProvider(
+            create: (_) => GameListCubit(serviceLocator<GameRepository>()),
+          ),
+          // Injects FavoriteCubit (local favorite repository)
+          BlocProvider(
+            create: (_) => FavoriteCubit(FavoriteRepository()),
+          ),
         ],
         child: const HomeNavigation(),
       ),

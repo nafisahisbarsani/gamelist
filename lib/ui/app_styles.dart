@@ -13,6 +13,9 @@ class AppStyles {
   static const Color black100 = Color(0xFFF3F3F3);
   static const Color black00 = Color(0xFFFFFFFF);
 
+  //additional
+  static const Color danger = Color(0xFFF44336);
+
   //padding & margin
   static const double paddingXS = 4.0;
   static const double paddingS = 8.0;
