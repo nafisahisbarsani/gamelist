@@ -86,7 +86,7 @@ class GameListPage extends StatelessWidget {
 
   Widget _buildSearchBar(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(AppStyles.paddingXL),
+      padding: EdgeInsets.all(AppStyles.paddingXL),
       child: CustomSearchBar(
         controller: _searchController,
         onChanged: (query) => _onSearchChanged(context, query),
@@ -104,7 +104,7 @@ class GameListPage extends StatelessWidget {
         ),
       ),
 
-      GameLoading() => const Center(
+      GameLoading() => Center(
         child: CircularProgressIndicator(color: AppStyles.primary1),
       ),
 
@@ -148,7 +148,7 @@ class GameListPage extends StatelessWidget {
                       },
                     );
                   } else {
-                    return const Padding(
+                    return Padding(
                       padding: EdgeInsets.symmetric(vertical: 16),
                       child: SizedBox.shrink(),
                     );
@@ -160,7 +160,7 @@ class GameListPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, size: 64, color: Colors.red),
+            Icon(Icons.error_outline, size: 64, color: AppStyles.danger),
             SizedBox(height: AppStyles.spaceL),
             Text(
               'Error: ${state.message}',

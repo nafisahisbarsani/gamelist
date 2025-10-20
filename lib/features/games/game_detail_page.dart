@@ -16,62 +16,60 @@ class GameDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => GameDetailCubit(serviceLocator<GameRepository>())..fetchGameDetail(gameId),
+      create: (_) =>
+          GameDetailCubit(serviceLocator<GameRepository>())
+            ..fetchGameDetail(gameId),
       child: Scaffold(
         backgroundColor: AppStyles.black500,
-        body: SafeArea(
-          child: Column(
-            children: [
-              CustomArrow(title: "Detail"),
-              Expanded(
-                child: BlocBuilder<GameDetailCubit, GameDetailState>(
-                  builder: (context, state) {
-                    if (state is GameDetailLoading) {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          color: AppStyles.primary1,
-                        ),
-                      );
-                    } else if (state is GameDetailError) {
-                      return Center(
-                        child: Text(
-                          'Error: ${state.message}',
-                          style: const TextStyle(color: Colors.red),
-                        ),
-                      );
-                    } else if (state is GameDetailSuccess) {
-                      final game = state.gameDetail;
-                      return SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _buildHeader(game.backgroundImage),
-                            _buildTitle(game.name),
-                            SizedBox(height: AppStyles.spaceXXXXL),
-                            _buildInfoRow(
-                              rating: game.rating?.toString() ?? "-",
-                              released: game.released ?? "-",
-                              platforms:
-                                  game.platforms
-                                      ?.map((p) => p.platform.name)
-                                      .join(", ") ??
-                                  "-",
-                            ),
-                            _buildDescription(game.description),
-                          ],
-                        ),
-                      );
-                    }
-                    return Center(
+        body: Column(
+          children: [
+            CustomArrow(title: "Detail"),
+            Expanded(
+              child: BlocBuilder<GameDetailCubit, GameDetailState>(
+                builder: (context, state) {
+                  if (state is GameDetailLoading) {
+                    return const Center(
                       child: CircularProgressIndicator(
                         color: AppStyles.primary1,
                       ),
                     );
-                  },
-                ),
+                  } else if (state is GameDetailError) {
+                    return Center(
+                      child: Text(
+                        'Error: ${state.message}',
+                        style: AppStyles.sregular(color: AppStyles.danger),
+                      ),
+                    );
+                  } else if (state is GameDetailSuccess) {
+                    final game = state.gameDetail;
+                    return SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildHeader(game.backgroundImage),
+                          _buildTitle(game.name),
+                          SizedBox(height: AppStyles.spaceXXXXL),
+                          _buildInfoRow(
+                            rating: game.rating?.toString() ?? "-",
+                            released: game.released ?? "-",
+                            platforms:
+                                game.platforms
+                                    ?.map((p) => p.platform.name)
+                                    .join(", ") ??
+                                "-",
+                          ),
+                          _buildDescription(game.description),
+                        ],
+                      ),
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(color: AppStyles.primary1),
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -104,7 +102,11 @@ class GameDetailPage extends StatelessWidget {
               style: AppStyles.lgsemibold(color: AppStyles.black00),
             ),
           ),
-          Icon(Icons.favorite_border, color: AppStyles.primary1, size: 24),
+          Icon(
+            Icons.favorite_border,
+            color: AppStyles.primary1,
+            size: AppStyles.iconL,
+          ),
         ],
       ),
     );

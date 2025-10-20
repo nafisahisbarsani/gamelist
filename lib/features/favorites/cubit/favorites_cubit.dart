@@ -26,9 +26,14 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       } else {
         await _repository.addFavorite(game);
       }
-      loadFavorites();
+      final updatedFavorites = await _repository.getFavorites();
+      emit(FavoriteLoaded(updatedFavorites));
     } catch (e) {
       emit(FavoriteError('Failed to update favorite: $e'));
     }
+  }
+
+  Future<bool> isFavorite(int id) async {
+    return await _repository.isFavorite(id);
   }
 }
