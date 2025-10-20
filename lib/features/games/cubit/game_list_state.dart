@@ -29,3 +29,11 @@ class GameError extends GameListState {
   @override
   List<Object> get props => [message];
 }
+class GameNavigate extends GameListState {
+  final GameModel game;
+
+  const GameNavigate(this.game);
+
+  @override
+  List<Object> get props => [game];
+}

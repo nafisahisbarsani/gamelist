@@ -10,6 +10,8 @@ import 'cubit/game_list_state.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:async';
 
+import 'game_detail_page.dart';
+
 class GameListPage extends StatelessWidget {
   GameListPage({super.key});
 
@@ -36,7 +38,6 @@ class GameListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Ensure games are loaded and scroll listener added once after first frame
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final cubit = context.read<GameListCubit>();
 
@@ -107,45 +108,53 @@ class GameListPage extends StatelessWidget {
         child: CircularProgressIndicator(color: AppStyles.primary1),
       ),
 
-      GameSuccess() => state.games.isEmpty
-          ? Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.search_off, size: 64, color: AppStyles.primary1),
-            SizedBox(height: AppStyles.spaceL),
-            Text(
-              'No games found',
-              style: AppStyles.lgsemibold(color: AppStyles.black00),
-            ),
-            SizedBox(height: AppStyles.spaceS),
-            Text(
-              'Try a different search term',
-              style: AppStyles.smedium(
-                color: AppStyles.black00.withOpacity(0.7),
+      GameSuccess() =>
+        state.games.isEmpty
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.search_off, size: 64, color: AppStyles.primary1),
+                    SizedBox(height: AppStyles.spaceL),
+                    Text(
+                      'No games found',
+                      style: AppStyles.lgsemibold(color: AppStyles.black00),
+                    ),
+                    SizedBox(height: AppStyles.spaceS),
+                    Text(
+                      'Try a different search term',
+                      style: AppStyles.smedium(
+                        color: AppStyles.black00.withOpacity(0.7),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : ListView.builder(
+                controller: _scrollController,
+                itemCount: state.games.length + 1,
+                itemBuilder: (context, index) {
+                  if (index < state.games.length) {
+                    final game = state.games[index];
+                    return CustomCard(
+                      game: game,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => GameDetailPage(gameId: game.id),
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: SizedBox.shrink()
+                    );
+                  }
+                },
               ),
-            ),
-          ],
-        ),
-      )
-          : ListView.builder(
-        controller: _scrollController,
-        itemCount: state.games.length + 1,
-        itemBuilder: (context, index) {
-          if (index < state.games.length) {
-            final game = state.games[index];
-            return CustomCard(game: game);
-          } else {
-            // Loader at bottom for pagination
-            return const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Center(
-                child: CircularProgressIndicator(color: AppStyles.primary1),
-              ),
-            );
-          }
-        },
-      ),
 
       GameError() => Center(
         child: Column(

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_list_cubit/repository/game_repository.dart';
+import '../../../model/game_model.dart';
 import 'game_list_state.dart';
 
 class GameListCubit extends Cubit<GameListState> {
@@ -65,4 +66,8 @@ class GameListCubit extends Cubit<GameListState> {
       _isLoadingMore = false;
     }
   }
+  void openGameDetail(GameModel game) {
+    emit(GameNavigate(game));
+  }
+
 }

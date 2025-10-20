@@ -80,6 +80,9 @@ flutter:
      - assets/images/game_selected.svg
      - assets/images/game_unselected.svg
      - assets/images/heart_unselected.svg
+     - assets/images/platform.svg
+     - assets/images/rating.svg
+     - assets/images/release.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
