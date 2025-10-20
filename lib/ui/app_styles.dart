@@ -71,7 +71,7 @@ class AppStyles {
   static TextStyle mlbold({required Color color}) => TextStyle(
     fontSize: 24,
     fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w700,
     color: color,
   );
   static TextStyle lgregular({required Color color}) => TextStyle(

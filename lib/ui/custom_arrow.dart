@@ -12,7 +12,7 @@ class CustomArrow extends StatelessWidget {
     Key? key,
     this.title,
     this.onBack,
-    this.iconColor = AppStyles.black00,
+    this.iconColor = AppStyles.black500,
     this.boxColor = AppStyles.primary1,
     this.textColor = AppStyles.primary1,
   }) : super(key: key);
@@ -20,10 +20,7 @@ class CustomArrow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        left: AppStyles.paddingXL,
-        top: AppStyles.paddingXXL,
-      ),
+      padding: EdgeInsets.only(left: AppStyles.paddingXL, top: 35),
       child: Row(
         children: [
           Container(
@@ -31,23 +28,20 @@ class CustomArrow extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.10,
             decoration: BoxDecoration(
               color: boxColor,
-              borderRadius: BorderRadius.circular(AppStyles.radiusS),
+              borderRadius: BorderRadius.circular(AppStyles.radiusL),
             ),
             child: IconButton(
-              onPressed: () {},
+              onPressed: onBack ?? () => Navigator.pop(context),
               icon: Icon(
                 Icons.arrow_back_ios_new,
                 color: iconColor,
-                size: AppStyles.iconS,
+                size: AppStyles.iconM,
               ),
             ),
           ),
           if (title != null) ...[
             SizedBox(width: AppStyles.spaceS),
-            Text(
-              title!,
-              style: AppStyles.lgsemibold(color: AppStyles.primary1),
-            ),
+            Text(title!, style: AppStyles.mlbold(color: AppStyles.primary1)),
           ],
         ],
       ),
