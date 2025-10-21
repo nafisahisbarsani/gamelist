@@ -18,18 +18,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favoriteRepository = FavoriteRepository();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'RAWG Games',
       home: MultiBlocProvider(
         providers: [
-          // Injects GameListCubit with the Dio-backed GameRepository
           BlocProvider(
             create: (_) => GameListCubit(serviceLocator<GameRepository>()),
           ),
-          // Injects FavoriteCubit (local favorite repository)
           BlocProvider(
-            create: (_) => FavoriteCubit(FavoriteRepository()),
+            create: (_) => FavoriteCubit(favoriteRepository)..loadFavorites(),
           ),
         ],
         child: const HomeNavigation(),
