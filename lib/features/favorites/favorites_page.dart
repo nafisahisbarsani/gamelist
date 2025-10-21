@@ -14,6 +14,7 @@ class FavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future.microtask(() => context.read<FavoriteCubit>().loadFavorites());
     return Scaffold(
       backgroundColor: AppStyles.black500,
       appBar: AppBar(
@@ -24,8 +25,8 @@ class FavoritesPage extends StatelessWidget {
             SvgPicture.asset('assets/images/heart.svg'),
             SizedBox(width: AppStyles.spaceM),
             Text(
-              'Favorites',
-              style: AppStyles.lgsemibold(color: AppStyles.primary1),
+              'Favorite',
+              style: AppStyles.mlsemibold(color: AppStyles.primary1),
             ),
           ],
         ),

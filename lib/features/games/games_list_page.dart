@@ -62,7 +62,7 @@ class GameListPage extends StatelessWidget {
             SizedBox(width: AppStyles.spaceM),
             Text(
               'Game List',
-              style: AppStyles.lgsemibold(color: AppStyles.primary1),
+              style: AppStyles.mlsemibold(color: AppStyles.primary1),
             ),
           ],
         ),
