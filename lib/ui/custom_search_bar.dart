@@ -15,7 +15,7 @@ class CustomSearchBar extends StatelessWidget {
     required this.onChanged,
     required this.onClear,
     this.hintText = 'Search',
-    this.width = 352,
+    this.width = 354,
     this.height = 51,
   });
 
